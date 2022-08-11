@@ -1,0 +1,266 @@
+@import '../../styles/variables';
+
+
+.main-home-dark {
+    background: $primary_dark;
+    color: $primary_white;
+    .main-banner {
+        h2 {
+            font-weight: bold;
+            font-size: 2.5rem;
+        }
+        h3 {
+            font-weight: bold;
+            font-size: 2.1rem;
+        }
+    
+        img {
+            border-radius: 8px;
+        }
+
+        padding: 5rem 0;
+    }
+    .main-banner__text {
+        color: $primary_gray;
+        font-size: 1.7rem;
+        small {
+            color: white;
+            background: linear-gradient(90deg,#FA7F45,#ff4186);
+            padding: .3rem;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        span {
+            font-weight: bold;
+            color: $primary_white;
+        }
+    }
+    
+    .main-banner__buttons {
+        margin: .5rem;
+        outline: none;
+        font: inherit;
+        background: none;
+        padding: .8rem 2rem;
+        color: white;
+        border-radius: 5px;
+        font-size: .8rem;
+        font-weight: bold;
+        transition: .3;
+        &:hover {
+            transform: translateY(-3px);
+        }
+    }
+    
+    .main-banner__lessons {
+        border: 1px solid $primary_orange;
+        transition: .3s;
+        &:hover {
+            background-color: $primary_orange;
+        }
+    }
+    
+    .main-banner__courses {
+        border: 1px solid $primary_green;
+        transition: .3s;
+        &:hover {
+            background-color: $primary_green;
+        }
+    }
+
+    .twitters-banner {
+       h2 {
+            color: $primary_white;
+       }
+       span {
+        color: $secondary_white;
+       }
+    }
+    .videos-navigate-buttons {
+        button {
+            padding: 2rem 4rem;
+            margin: 1rem;
+            outline: none;
+            background: none;
+            font: inherit;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
+    
+        .video-navigate__fullCourses {
+            border:3px solid $primary_purple;
+            transition: .3s;
+            &:hover {
+                @include transformY(-2px);
+                background-color: $primary_purple;
+                color: white;
+            }
+        }
+        .video-navigate__sinceLessions {
+            border:3px solid $primary_green;
+            transition: .3s;
+            &:hover {
+                @include transformY(-2px);
+                background-color: $primary_green;
+                color: white;
+            }
+        }
+        .video-navigate__quickFind {
+            border:3px solid $primary_blue;
+            transition: .3s;
+            &:hover {
+                @include transformY(-2px);
+                background-color: $primary_blue;
+                color: white;
+            }
+        }
+    }
+    .me-info {
+        margin-top: 5rem;
+        h2 {
+            font-weight: bold;
+            font-size: 3rem;
+        }
+    
+        span, p {
+            font-size: 1.7rem;
+            color: $secondary_white;
+        }
+    }
+}
+
+.main-home-light {
+    color: $secondary_dark;
+    background: $secondary_white;
+    .main-banner {
+        h2 {
+            font-weight: bold;
+            font-size: 2.5rem;
+        }
+        h3 {
+            font-weight: bold;
+            font-size: 2.1rem;
+        }
+    
+        img {
+            border-radius: 8px;
+        }
+
+        padding: 5rem 0;
+    }
+    .main-banner__text {
+        color: $secondary_dark;
+        font-size: 1.7rem;
+        small {
+            color: $secondary_dark;
+            background: linear-gradient(90deg,#FA7F45,#ff4186);
+            padding: .3rem;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        span {
+            font-weight: bold;
+            color: $primary_dark;
+        }
+    }
+    
+    .main-banner__buttons {
+        margin: .5rem;
+        outline: none;
+        font: inherit;
+        background: none;
+        padding: .8rem 2rem;
+        color: white;
+        border-radius: 5px;
+        font-size: .8rem;
+        font-weight: bold;
+        transition: .3;
+        &:hover {
+            transform: translateY(-3px);
+        }
+    }
+    
+    .main-banner__lessons {
+        border: 1px solid $primary_orange;
+        color: $secondary_dark;
+        transition: .3s;
+        &:hover {
+            color: $secondary_white;
+            background-color: $primary_orange;
+        }
+    }
+    
+    .main-banner__courses {
+        border: 1px solid $primary_green;
+        transition: .3s;
+        color: $secondary_dark;
+        &:hover {
+            color: $secondary_white;
+            background-color: $primary_green;
+        }
+    }
+    .videos-navigate-buttons {
+        button {
+            padding: 2rem 4rem;
+            margin: 1rem;
+            outline: none;
+            background: none;
+            font: inherit;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    
+        .video-navigate__fullCourses {
+            border:3px solid $primary_purple;
+            transition: .3s;
+            &:hover {
+                @include transformY(-2px);
+                background-color: $primary_purple;
+                color: white;
+            }
+        }
+        .video-navigate__sinceLessions {
+            border:3px solid $primary_green;
+            transition: .3s;
+            &:hover {
+                @include transformY(-2px);
+                background-color: $primary_green;
+                color: white;
+            }
+        }
+        .video-navigate__quickFind {
+            border:3px solid $primary_blue;
+            transition: .3s;
+            &:hover {
+                @include transformY(-2px);
+                background-color: $primary_blue;
+                color: white;
+            }
+        }
+    }
+    .me-info {
+        margin-top: 5rem;
+        h2 {
+            font-weight: bold;
+            font-size: 3rem;
+        }
+    
+        span, p {
+            font-size: 1.7rem;
+        }
+    }
+}
+
+.all-pro-course-btn {
+    background-color: $primary_green;
+    border: none;
+    padding: 2rem 5rem;
+    transition: .3s;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    &:hover {
+        background-color: $primary_green;
+        @include transformY(-5px);
+    }
+}

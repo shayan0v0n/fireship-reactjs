@@ -1,0 +1,62 @@
+@import '../../styles/variables';
+
+.footer-light {
+    text-align: center;
+    padding:5rem 0;
+    border-top: 1px dashed black;
+    .footer-texts {
+        font-size: 1.2rem;
+        span {
+            color: $secondary_dark;
+        }
+        a {
+            text-decoration: none;
+        }
+    }
+    .footer-links {
+        a {
+            margin: .5rem;
+            color: $primary_green;
+        }
+    }
+    .footer-brands {
+        a {
+            margin: 1rem;
+            i {
+                font-size: 2rem;
+            }
+        }
+    }
+}
+
+.footer-dark {
+    text-align: center;
+    background: $primary_dark;
+    padding:5rem 0;
+    border-top: 1px dashed white;
+    .footer-texts {
+        font-size: 1.2rem;
+        span {
+            color: white;
+        }
+        a {
+            text-decoration: none;
+        }
+    }
+    .footer-links {
+        a {
+            margin: .5rem;
+            color: $primary_green;
+        }
+    }
+    .footer-brands {
+        a {
+            margin: 1rem;
+            i {
+                font-size: 2rem;
+            }
+        }
+    }
+}
+
+

@@ -1,0 +1,21 @@
+@import '../../../styles/variables';
+
+.coursesPlace-dark {
+    background-color: $secondary_dark;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    transition: .3s;
+
+    &:Hover {
+        @include transformY(-5px);
+    }
+}
+
+.coursesPlace-light {
+    background-color: $primary_white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    transition: .3s;
+
+    &:Hover {
+        @include transformY(-5px);
+    }
+}

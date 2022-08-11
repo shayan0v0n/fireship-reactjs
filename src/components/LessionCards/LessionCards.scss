@@ -1,0 +1,31 @@
+@import '../../styles/variables.scss';
+
+.lession-card-dark {
+    background-color: $secondary_dark;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    transition: .3s;
+    margin: 1rem;
+    color: $primary_white;
+    &:hover {
+        @include transformY(-3px)
+    }
+
+    img {
+        cursor: pointer;
+        border-radius: 8px 8px 0 0;
+    }
+}
+
+.lession-card-light {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    transition: .3s;
+    margin: 1rem;
+    &:hover {
+        @include transformY(-3px)
+    }
+
+    img {
+        cursor: pointer;
+        border-radius: 8px 8px 0 0;
+    }
+}

@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
+import Home from './containers/Home/Home';
+import Lessions from './containers/Lessions/Lessions';
+import Courses from './containers/Courses/Courses';
+import Tags from './containers/Tags/Tags';
+import useDarkMode from './hooks/useDarkMode';
+import License from './containers/License/License';
+import './styles/app.scss'
 
-function App() {
+const App = props => {
+  const [theme] = useDarkMode()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={theme ? 'main-dark' : 'main-light'}>
+        <Header />
+      <main>
+        <Routes>
+          <Route path='/' element={ <Home /> } />
+          <Route path='/lessions' element={ <Lessions /> } />
+          <Route path='/courses' element={ <Courses /> } />
+          <Route path='/tags' element={ <Tags /> } />
+          <Route path='/license' element={ <License /> } />
+        </Routes>
+      </main>
+        <Footer />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

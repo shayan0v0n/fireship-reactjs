@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'vazir';
+    src: url('/assets/fonts/Vazir-Regular-FD.woff');
+}
+
+body {
+    font-family: 'vazir';
+    background: #dbe1e8;
+}

@@ -1,0 +1,11 @@
+@import '../../styles/variables.scss';
+
+.tag {
+    background-color: $primary_green;
+    color: white;
+    padding: .2rem .5rem;
+    text-align: center;
+    margin: .5rem;
+    border-radius: 3px;
+    cursor: pointer;
+}

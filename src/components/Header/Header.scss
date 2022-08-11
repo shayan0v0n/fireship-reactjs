@@ -1,0 +1,20 @@
+.header-center__link {
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin:0 .5rem;
+    i {
+        margin: .3rem;
+    }
+}
+
+.header-right__link {
+    font-size: 2rem;
+    margin:0 .3rem;
+}
+
+.main-header {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    left: 0;
+}

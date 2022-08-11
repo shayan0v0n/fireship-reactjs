@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+
+.twiiter-cards-light {
+    span {
+        color: $secondary_dark;
+        font-size: 1.2rem;
+    }
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    i {
+        color: $secondary_dark;
+        font-size: 1.2rem;
+    }
+}
+
+.twiiter-cards-dark {
+    background-color: $secondary_dark;
+    span {
+        color: $primary_white;
+        font-size: 1.2rem;
+    }
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    i {
+        color: $primary_white;
+        font-size: 1.2rem;
+    }
+}
