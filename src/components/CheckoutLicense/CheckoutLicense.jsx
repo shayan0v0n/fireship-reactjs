@@ -14,7 +14,7 @@ const CheckoutLicense = () => {
                 <div>
                     <input type="text" placeholder='Card Number (Fake)' />
                 </div>
-                <button>PAY $25.00</button>
+                <button>PAY</button>
             </div>
         </div>
     </div>

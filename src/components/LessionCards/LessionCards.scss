@@ -10,6 +10,11 @@
         @include transformY(-3px)
     }
 
+    a {
+        text-decoration: none;
+        color: $primary_white;
+    }
+
     img {
         cursor: pointer;
         border-radius: 8px 8px 0 0;
@@ -22,6 +27,11 @@
     margin: 1rem;
     &:hover {
         @include transformY(-3px)
+    }
+
+    a {
+        text-decoration: none;
+        color: $primary_dark;
     }
 
     img {

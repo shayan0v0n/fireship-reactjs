@@ -15,9 +15,9 @@ const SingleLicense = props => {
   return (
     <div className='text-center mt-5 single-license'>
         {theme ? (
-        <img src={`./assets/imgs/${licenseData.name}_icon-light.png`} />
+        <img src={`/assets/imgs/${licenseData.name}_icon-light.png`} />
         ) : (
-        <img src={`./assets/imgs/${licenseData.name}_icon-dark.png`} />
+        <img src={`/assets/imgs/${licenseData.name}_icon-dark.png`} />
         )}
         <h3 className='my-3'>{licenseData.name}</h3>
         <span><small>${licenseData.price}</small>/{licenseData.timeout}</span>

@@ -1,0 +1,46 @@
+@import '../../styles/variables.scss';
+
+.dashboardOffcanvas-dark {
+    background-color: $primary_dark;
+    color: white;
+    .dashboard-list {
+        list-style: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        li {
+            padding: 1rem;
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: bold;
+            transition: .3s;
+            &:hover {
+                padding-left: 1.7rem;
+                background-color: $primary_gray;
+                color: $primary_dark;
+            }
+        }
+    }
+}
+
+.dashboardOffcanvas-light {
+    background-color: $secondary_white;
+    .dashboard-list {
+        list-style: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        li {
+            padding: 1rem;
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: bold;
+            transition: .3s;
+            &:hover {
+                padding-left: 1.7rem;
+                background-color: $secondary_dark;
+                color: $primary_white;
+            }
+        }
+    }
+}

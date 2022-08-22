@@ -1,0 +1,123 @@
+@import '../../styles/variables.scss';
+
+.singleCourse {
+    .extra-aside {
+        list-style: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        border-radius: 8px;
+        background-color: $primary_white;
+        position: sticky;
+        top: 100px;
+        left: 0;
+        padding: 1rem;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        li {
+            font-weight: bold;
+            color: $secondary_dark;
+            transition: .3s;
+            &:hover {
+                color: $primary_dark;
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+    }
+    
+    .main-aside {
+        background-color: $primary_white;
+        .card-body {
+            padding: 2rem 1rem;
+            .card-title {
+                font-weight: bold;
+                font-size: 2.2rem;
+            }
+            
+            .card-text {
+                font-size: 1.2rem;
+            }
+            
+            span {
+                font-size: 1.3rem;
+                span {
+                    font-weight: bold;
+                    color: $primary_green;
+                }
+            }
+        }
+    }
+
+    .pricing {
+        .pay-button {
+            background-color: $primary_green;
+            border: none;
+            color: $primary_white;
+            padding: 1rem;
+        }
+    }
+}
+
+.singleCourse-dark {
+    color: $secondary_white;
+    .extra-aside {
+        list-style: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        border-radius: 8px;
+        background-color: $secondary_dark;
+        position: sticky;
+        top: 100px;
+        left: 0;
+        padding: 1rem;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        li {
+            font-weight: bold;
+            color: $secondary_white;
+            transition: .3s;
+            &:hover {
+                color: $primary_white;
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+    }
+    
+    .main-aside {
+        background-color: $secondary_dark;
+        color: $primary_white;
+        .card-body {
+            padding: 2rem 1rem;
+            .card-title {
+                font-weight: bold;
+                font-size: 2.2rem;
+            }
+            
+            .card-text {
+                font-size: 1.2rem;
+            }
+            
+            span {
+                font-size: 1.3rem;
+                span {
+                    font-weight: bold;
+                    color: $primary_green;
+                }
+            }
+        }
+    }
+
+    .pricing {
+        .pay-button {
+            background-color: $primary_green;
+            border: none;
+            color: $primary_white;
+            padding: 1rem;
+        }
+    }
+}

@@ -1,13 +1,41 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Navbar, Nav, Container, Tooltip, OverlayTrigger } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap';
 import useDarkMode from '../../hooks/useDarkMode'
 import LoginModal from '../LoginModal/LoginModal';
+import { useDispatch, useSelector } from 'react-redux'
+import { userAction } from '../../apiControl/actions'
+import axios from 'axios';
 import './Header.scss'
+
 
 const Header = props => {
   const [theme, toggleTheme] = useDarkMode();
-  const [loginModal, setLoginModal] = useState(false)
+  const [loginModal, setLoginModal] = useState(false);
+  const navigate = useNavigate()
+  const navigateDashboard = () => navigate('/dashboard');
+  const accountExist = JSON.parse(localStorage.getItem('accountExist'));
+  let checkDB = false
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(userAction())
+  }, [])
+
+  const userData = useSelector(state => state.user)
+  if (userData.user !== null) {
+    const userDataKey = Object.keys(userData.user)
+    const currentUser = userData.user[userDataKey[0]];
+    if (accountExist !== null && currentUser !== undefined) {
+      if (currentUser.name !== accountExist.name) {
+        axios.delete('https://fireship-6470a-default-rtdb.firebaseio.com/user.json')
+        checkDB = false;
+      }else {
+        checkDB = true
+      }
+    }
+  }
 
     return (
       <>
@@ -16,13 +44,13 @@ const Header = props => {
         <Container>
             <LinkContainer to='/'>
           <Navbar.Brand>
-              <img src='./assets/imgs/logo.png' className='w-25' />
+              <img src='/assets/imgs/logo.png' className='w-25' />
           </Navbar.Brand>
             </LinkContainer>
             <Nav className="d-none d-md-block header-center">
               <div className='d-flex'>
-                <LinkContainer to="/lessions">
-                <Nav.Link className='header-center__link'><i className='fa fa-tv'></i>Lessions</Nav.Link>
+                <LinkContainer to="/lessons">
+                <Nav.Link className='header-center__link'><i className='fa fa-tv'></i>Lessons</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/courses">
                 <Nav.Link className='header-center__link'><i className="fa fa-suitcase"></i>Courses</Nav.Link>
@@ -44,7 +72,11 @@ const Header = props => {
                 <LinkContainer to='/license'><Nav.Link className='header-right__link'><i className='fa fa-rocket'></i></Nav.Link></LinkContainer>
               </OverlayTrigger>
               <Nav.Link className='header-right__link'><i className="fa fa-eye" onClick={() => toggleTheme()}></i></Nav.Link>
-              <Nav.Link className='header-right__link'><i className="fa fa-user" onClick={() => setLoginModal(true)}></i></Nav.Link>
+              {accountExist == null && !checkDB ? (
+                <Nav.Link className='header-right__link'><i className="fa fa-user" onClick={() => setLoginModal(true)}></i></Nav.Link>
+                ) : (
+                <Nav.Link className='header-right__link'><i className="fa fa-user-circle" onClick={() => navigateDashboard()}></i></Nav.Link>
+              )}
             </Nav>
         </Container>
       </Navbar>

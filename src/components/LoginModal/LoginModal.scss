@@ -17,3 +17,16 @@
         color: white;
     }
 }
+
+.disabled-login {
+    outline: none;
+    background: none;
+    padding: 1rem 0;
+    font: inherit;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    transition: .3s;
+    border: none;
+    background-color: $primary_gray;
+}

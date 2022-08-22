@@ -8,4 +8,8 @@
     margin: .5rem;
     border-radius: 3px;
     cursor: pointer;
+    text-decoration: none;
+    &:hover {
+        background-color: $primary_blue;
+    }
 }

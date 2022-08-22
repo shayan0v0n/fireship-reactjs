@@ -7,7 +7,7 @@ const CoursesPlaceholder = () => {
 
     return (
         <Card className={theme ? 'p-3 m-3 coursesPlace-dark' : 'p-3 m-3 coursesPlace-light'}>
-        <Card.Img variant="top" src="./assets/imgs/placeholder.png" />
+        <Card.Img variant="top" src="/assets/imgs/placeholder.png" />
         <Card.Body>
           <Placeholder as={Card.Title} animation="glow">
             <Placeholder xs={6} />

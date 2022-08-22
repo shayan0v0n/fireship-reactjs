@@ -1,6 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import { coursesReducer, lessonsReducer, licenseReducer, tagsReducer, tweetsReducer } from './reducers'
+import { coursesReducer, lessonsReducer,
+licenseReducer, tagsReducer,
+tweetsReducer, userReducer } from './reducers'
 
 const initilalState = {}
 
@@ -9,7 +11,8 @@ const reducers = combineReducers({
     courses: coursesReducer,
     tweets: tweetsReducer,
     tags: tagsReducer,
-    licenses: licenseReducer
+    licenses: licenseReducer,
+    user: userReducer
 })
 
 const middleWare = [thunk]

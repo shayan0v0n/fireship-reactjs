@@ -40,12 +40,7 @@ const Home = () => {
     newToDevelopment.push(coursesData.courses[6])
     newToDevelopment.push(coursesData.courses[7])
   }
-  
-  const [ lessions, setLessions ] = useState([
-    {lessionID: 1, coursePath: 'angular', coursePrice: 29, courseTitle: 'Angular 12 Firebase Project Course', courseDesc: 'Build a high-performance progressive web application (PWA) with Angular & Firebase', courseTag: ['vue', 'nuxt', 'firebase']},
-    {lessionID: 1, coursePath: 'angular', coursePrice: 29, courseTitle: 'Angular 12 Firebase Project Course', courseDesc: 'Build a high-performance progressive web application (PWA) with Angular & Firebase', courseTag: ['typescript']}
-  ])
-  
+
   const tweets = []
   
   if (!tweetsData.loading && tweetsData.tweets[0]) {
@@ -78,7 +73,7 @@ const Home = () => {
               awesome web & mobile apps.</span></span>
           </div>
           <div className='mt-3'>
-            <Link to='/lessions'><button className='main-banner__buttons main-banner__lessons'>FREE LESSONS</button></Link>
+            <Link to='/lessons'><button className='main-banner__buttons main-banner__lessons'>FREE LESSONS</button></Link>
             <Link to='/courses'><button className='main-banner__buttons main-banner__courses'>PRO COURSES</button></Link>
           </div>
         </Col>

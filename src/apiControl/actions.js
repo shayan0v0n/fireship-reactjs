@@ -49,3 +49,13 @@ export const licensesAction = () => async dispatch => {
         dispatch({ type: 'LICENSE_REQ_ERR' })
     }
 }
+
+export const userAction = () => async dispatch => {
+    try {
+    dispatch({ type: 'USER_REQ_LOAD' })
+    const {data} = await axios.get(`https://fireship-6470a-default-rtdb.firebaseio.com/user.json`);
+    dispatch({ type: 'USER_REQ_SUC', payload: data })
+    }catch(err) {
+        dispatch({ type: 'USER_REQ_ERR' })
+    }
+}

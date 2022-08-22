@@ -62,3 +62,16 @@ export const licenseReducer = (state = {license: []}, action) => {
             return state
     }
 }
+
+export const userReducer = (state = {user: []}, action) => {
+    switch(action.type) {
+        case 'USER_REQ_SUC':
+            return { error: false, loading: false, user: action.payload }
+        case 'USER_REQ_LOAD':
+            return { error: false, loading: true, user: [] }
+        case 'USER_REQ_ERR':
+            return { error: true, loading: false, user: [] }
+        default:
+            return state
+    }
+}
