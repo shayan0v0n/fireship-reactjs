@@ -8,10 +8,12 @@ import useDarkMode from '../../hooks/useDarkMode';
 import CheckoutLicense from '../../components/CheckoutLicense/CheckoutLicense';
 import SingleLicense from '../../components/SingleLicense/SingleLicense';
 import { useState } from 'react';
+import AlertModal from '../../components/UI/AlertModal/AlertModal';
 
 const SingleLesson = () => {
   const [theme] = useDarkMode()
   const [ isExistToAccount, setIsExistAccount ] = useState(false);
+  const [ addToCartModal, setAddToCartModal ] = useState(false)
   const currentAccount = JSON.parse(localStorage.getItem("accountExist"))
   const currentPath = useParams().path;
   const dispatch = useDispatch();
@@ -37,16 +39,22 @@ const SingleLesson = () => {
   }
 
   const checkLessonExistHandler = () => {
-    const courseIndex = currentAccount[0].findIndex(item => {
-      return item.path == currentCourse.path
-    })
-    
-    if (courseIndex !== -1) {
-      return true
+    if (currentAccount) {
+      const courseIndexCart = currentAccount[0].findIndex(item => {
+        return item.path == currentCourse.path
+      })
+      const courseIndexApproved = currentAccount[1].findIndex(item => {
+        return item.path == currentCourse.path
+      })
+      
+      if (courseIndexCart !== -1 || courseIndexApproved !== -1) {
+        return true
+      }else {
+        return false
+      }
     }else {
-      return false
+      return true
     }
-
   }
 
   checkLessonExistHandler()
@@ -62,10 +70,16 @@ const SingleLesson = () => {
     }
     localStorage.setItem("accountExist", JSON.stringify(updateCurrentAccount));
     setIsExistAccount(true)
+    setAddToCartModal(true)
     }
 
   return (
     <div>
+      <AlertModal show={addToCartModal} onHide={() => setAddToCartModal(false)} modalTitle="Lesson Added📙">
+        <img src='/assets/gifs/success.gif' className='w-50' />
+        <h2>You're Successfully Add Lesson...😃❤️</h2>
+        <h3>I Hope Enjoy It...</h3>
+      </AlertModal>
       { !lessonsData.loading && !licensesData.loading ? (
         <div className={!theme ? 'text-center my-5 container singleLesson' : 'text-center my-5 container singleLesson-dark'}>
           <div>

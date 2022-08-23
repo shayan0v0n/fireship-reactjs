@@ -7,9 +7,11 @@ import './SingleCourse.scss'
 import useDarkMode from '../../hooks/useDarkMode';
 import CheckoutLicense from '../../components/CheckoutLicense/CheckoutLicense';
 import SingleLicense from '../../components/SingleLicense/SingleLicense';
+import AlertModal from '../../components/UI/AlertModal/AlertModal';
 
 const SingleCourse = () => {
   const [ isExistToAccount, setIsExistAccount ] = useState(false);
+  const [ addToCartModal, setAddToCartModal ] = useState(false)
   const currentAccount = JSON.parse(localStorage.getItem("accountExist"))
   const [theme] = useDarkMode()
   const currentPath = useParams().path;
@@ -36,14 +38,21 @@ const SingleCourse = () => {
   }
   
   const checkLessonExistHandler = () => {
-    const courseIndex = currentAccount[0].findIndex(item => {
-      return item.path == currentCourse.path
-    })
-    
-    if (courseIndex !== -1) {
-      return true
+    if (currentAccount) {
+      const courseIndexCart = currentAccount[0].findIndex(item => {
+        return item.path == currentCourse.path
+      })
+      const courseIndexApproved = currentAccount[1].findIndex(item => {
+        return item.path == currentCourse.path
+      })
+      
+      if (courseIndexCart !== -1 || courseIndexApproved !== -1) {
+        return true
+      }else {
+        return false
+      }
     }else {
-      return false
+      return true
     }
   }
 
@@ -60,11 +69,17 @@ const SingleCourse = () => {
     }
     localStorage.setItem("accountExist", JSON.stringify(updateCurrentAccount));
     setIsExistAccount(true)
+    setAddToCartModal(true)
     }
   
 
   return (
     <div>
+      <AlertModal show={addToCartModal} onHide={() => setAddToCartModal(false)} modalTitle="Course Added📙">
+        <img src='/assets/gifs/success.gif' className='w-50' />
+        <h2>You're Successfully Add Course...😃❤️</h2>
+        <h3>I Hope Enjoy It...</h3>
+      </AlertModal>
       { !coursesData.loading ? (
         <div className={!theme ? 'text-center my-5 container singleCourse' : 'text-center my-5 container singleCourse-dark'}>
           <div>

@@ -1,56 +1,71 @@
 import { useState } from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import useDarkMode from '../../../hooks/useDarkMode'
 import DashboardOffcanvas from '../../../components/DashboardOffcanvas/DashboardOffcanvas'
 import './ProfileDashboard.scss'
 
 const ProfileDashboard = () => {
-  const currentValue = JSON.parse(localStorage.getItem("accountExist"))
+const currentAccount = JSON.parse(localStorage.getItem('accountExist'))
   const [theme] = useDarkMode()
   const navigate = useNavigate()
   const [show, setShow] = useState(true);
-  const [ currentName, setCurrentName ] = useState(currentValue.name)
-  const [ currentPassword, setCurrentPassword ] = useState(currentValue.password)
+  const [ currentName, setCurrentName ] = useState(currentAccount)
+  const [ currentPassword, setCurrentPassword ] = useState(currentAccount)
   const [ currentNameValidate, setCurrentNameValidate ] = useState(true);
   const [ currentPassValidate, setCurrentPassValidate ] = useState(true);
   const [ formValidate, setFormValidate ] = useState(false);
 
-  const currentNameHandler = e => {
+  let currentNameHandler = () => {}
+  let currentPassHandler = () => {}
+  let formValidateHandler = () => {}
+  let profileButtonHandler = () => {}
+if (currentAccount !== null) {
+   currentNameHandler = e => {
     setCurrentName(e.target.value)
-    currentName.trim().length <= 8 ? setCurrentNameValidate(false) : setCurrentNameValidate(true)
+    currentName.name.trim().length <= 8 ? setCurrentNameValidate(false) : setCurrentNameValidate(true)
     formValidateHandler()
   }
-  const currentPassHandler = e => {
+   currentPassHandler = e => {
     setCurrentPassword(e.target.value)
-    currentPassword.trim().length <= 8 ? setCurrentPassValidate(false) : setCurrentPassValidate(true)
+    currentPassword.password.trim().length <= 8 ? setCurrentPassValidate(false) : setCurrentPassValidate(true)
     formValidateHandler()
   }
 
-  const formValidateHandler = () => {
+   formValidateHandler = () => {
     if (currentNameValidate && currentPassValidate) {
       setFormValidate(true)
     }else {
       setFormValidate(false)
     }
   }
-
-  const profileButtonHandler = () => {
-    const userInputs = { 
-      0: [""],
-      license: currentValue.license,
-      name: currentName,
-      password: currentPassword
-     }
-    localStorage.setItem("accountExist", JSON.stringify(userInputs))
-     axios.delete('https://fireship-6470a-default-rtdb.firebaseio.com/user.json')
-     axios.post('https://fireship-6470a-default-rtdb.firebaseio.com/user.json', userInputs)
-     
-  }
   
+   profileButtonHandler = () => {
+    let userInputs = {}
+    if (typeof currentName == "string") {
+       userInputs = { 
+        0: [],
+        1: [],
+        license: currentAccount.license,
+        name: currentName,
+        password: currentPassword
+       }
+      }else {
+       userInputs = { 
+        0: [],
+        1: [],
+        license: currentAccount.license,
+        name: currentName.name,
+        password: currentPassword.password
+       }
+    }
+    localStorage.setItem("accountExist", JSON.stringify(userInputs))
+  }
+}
+
   return (
     <div className={theme ? 'dashboard-dark text-center' : 'dashboard-light text-center'}>
+        { currentAccount !== null ? (
       <div>
         <button className='w-100' onClick={() => setShow(true)}><i className='fa fa-bars'></i></button>
         <DashboardOffcanvas show={show} handleClose={() => setShow(false)} />
@@ -64,7 +79,7 @@ const ProfileDashboard = () => {
               
             >
               <Form.Control type="text" placeholder="UserName"
-               value={currentName}
+               value={currentName.name}
                onInput={(e) => currentNameHandler(e)} />
             </FloatingLabel>
             <FloatingLabel
@@ -74,7 +89,7 @@ const ProfileDashboard = () => {
               
             >
               <Form.Control type="password" placeholder="Password"
-               value={currentPassword}
+               value={currentPassword.password}
                onInput={(e) => currentPassHandler(e)} />
             </FloatingLabel>
             { formValidate ? (<Button className='w-100' onClick={() => {profileButtonHandler(); navigate("/dashboard")}}>SUBMIT</Button>) :
@@ -82,6 +97,12 @@ const ProfileDashboard = () => {
           </Form>
         </div>
       </div>
+        ) : (
+          <div className='my-5 text-center py-5 dashboard-err'>
+          <h2>You Should Register First👽👊</h2>
+          <span>Please Register First, If You Want Use Dashboard...</span>
+        </div>
+        ) }
     </div>
   )
 }

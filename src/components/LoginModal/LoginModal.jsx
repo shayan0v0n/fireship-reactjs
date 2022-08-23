@@ -1,23 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Modal, Form, FloatingLabel } from 'react-bootstrap'
-import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
-import { userAction } from '../../apiControl/actions'
+import { useNavigate } from 'react-router-dom'
 import './LoginModal.scss'
+import AlertModal from '../UI/AlertModal/AlertModal'
 
 const LoginModal = props => {
   const [ inputUserName, setInputUserName ] = useState('');
   const [ inputPassword, setInputPassword ] = useState('');
   const [ inputValidate, setInputValidate ] = useState(false);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(userAction())
-  }, [])
-
-  const userData = useSelector(state => state.user)
-  
-  
+  const [loginAlert, setLoginAlert] = useState(false);
+  const inputUserNameHandler = (e) => setInputUserName(e.target.value)
+  const inputPasswordHandler = (e) => setInputPassword(e.target.value)
+  const navigate = useNavigate()
   
   const checkSubmitValidate = () => {
     if (inputUserName.trim() == '' || inputPassword.trim() == '') {
@@ -27,49 +21,31 @@ const LoginModal = props => {
     }
   }
   
-  const inputUserNameHandler = (e) => {
-    setInputUserName(e.target.value)
-  }
-  
-  const inputPasswordHandler = (e) => {
-    setInputPassword(e.target.value)
-  }
-  
   const submitLoginHandler = () => {
     const userInputs = {
       name: inputUserName,
       password: inputPassword,
       license: 'no license',
-      0: []}
+      0: [],
+      1: []}
       
-      
-      if (userData.user !== null ) {
-        const userDataKey = Object.keys(userData.user)
-        const currentUser = userData.user[userDataKey[0]]
-        if (currentUser.name !== userInputs.name) {
-          axios.delete('https://fireship-6470a-default-rtdb.firebaseio.com/user.json')
-          axios.post('https://fireship-6470a-default-rtdb.firebaseio.com/user.json', userInputs)
-          localStorage.setItem('accountExist', JSON.stringify(userInputs));
-          props.handleClose()
-        }else {
-          localStorage.setItem('accountExist', JSON.stringify(userInputs));
-          props.handleClose()
-        }
-      }else {
-        axios.post('https://fireship-6470a-default-rtdb.firebaseio.com/user.json', userInputs)
-        localStorage.setItem('accountExist', JSON.stringify(userInputs));
-        props.handleClose()
-      }
+      localStorage.setItem('accountExist', JSON.stringify(userInputs));
+      props.handleClose()
+      setLoginAlert(true)
+      navigate('/dashboard')
   }
   
-
   return (
+    <>
+    <AlertModal show={loginAlert} onHide={() => {setLoginAlert(false)}} modalTitle="Logged In🔥">
+      <img src='/assets/gifs/success.gif' className='w-50' />
+      <h2>You're Successfully Logged In...😃❤️</h2>
+      <h3>I Hope Enjoy It...</h3>
+    </AlertModal>
     <Modal
         show={props.show}
         onHide={props.handleClose}
-        backdrop="static"
-        
-    >
+        backdrop="static">
         <Modal.Header closeButton>
         <Modal.Title>Simple Login</Modal.Title>
         </Modal.Header>
@@ -86,6 +62,7 @@ const LoginModal = props => {
             { inputValidate ? (<button className='w-100 mt-3 login-button' onClick={() => submitLoginHandler()}>Login</button>) : (<button className='w-100 mt-3 disabled-login' disabled>Login</button>) }
         </Modal.Body>
     </Modal>
+    </>
   )
 }
 
