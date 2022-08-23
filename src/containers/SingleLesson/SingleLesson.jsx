@@ -7,9 +7,12 @@ import './SingleLesson.scss'
 import useDarkMode from '../../hooks/useDarkMode';
 import CheckoutLicense from '../../components/CheckoutLicense/CheckoutLicense';
 import SingleLicense from '../../components/SingleLicense/SingleLicense';
+import { useState } from 'react';
 
 const SingleLesson = () => {
   const [theme] = useDarkMode()
+  const [ isExistToAccount, setIsExistAccount ] = useState(false);
+  const currentAccount = JSON.parse(localStorage.getItem("accountExist"))
   const currentPath = useParams().path;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,19 +24,45 @@ const SingleLesson = () => {
   const lessonsData = useSelector(state => state.lessons)
   
   let licenses = []
+  let currentCourse = {}
   if (!licensesData.loading && licensesData.license[0]) {
       for(let i = 0;i <= licensesData.license.length -1;i++) {
           licenses.push(licensesData.license[i])
       }
   }
-  
-    let currentCourse = {}
-    if (!lessonsData.loading && lessonsData.lessons[0]) {
-       currentCourse = lessonsData.lessons.find(item => {
-        return item.path === currentPath
-      })
+  if (!lessonsData.loading && lessonsData.lessons[0]) {
+      currentCourse = lessonsData.lessons.find(item => {
+      return item.path === currentPath
+    })
+  }
+
+  const checkLessonExistHandler = () => {
+    const courseIndex = currentAccount[0].findIndex(item => {
+      return item.path == currentCourse.path
+    })
+    
+    if (courseIndex !== -1) {
+      return true
+    }else {
+      return false
     }
+
+  }
+
+  checkLessonExistHandler()
   
+  const addToCartHandler = () => {
+    let copiedCurrentAccount = {...currentAccount};
+    const currentLesson = currentCourse
+    const copiedCart = copiedCurrentAccount[0]
+    copiedCart.push(currentLesson)
+    const updateCurrentAccount = {
+      ...copiedCurrentAccount,
+      0: copiedCart
+    }
+    localStorage.setItem("accountExist", JSON.stringify(updateCurrentAccount));
+    setIsExistAccount(true)
+    }
 
   return (
     <div>
@@ -54,7 +83,11 @@ const SingleLesson = () => {
                 </Card.Body>
               </Card>
               <div className='pricing'>
-                <button className='btn w-100 mt-3 pay-button' id='pricing'>PAY ${ currentCourse.price }.00</button>
+                { checkLessonExistHandler() || isExistToAccount ? (
+                  <button className='btn w-100 mt-3 pay-button' id='pricing' disabled>ADD TO CART</button>
+                ) : (
+                  <button className='btn w-100 mt-3 pay-button' id='pricing' onClick={() => addToCartHandler()}>ADD TO CART</button>
+                ) }
                 <CheckoutLicense />
               </div>
               <div id='licenses'>

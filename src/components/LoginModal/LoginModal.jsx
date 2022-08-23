@@ -40,7 +40,7 @@ const LoginModal = props => {
       name: inputUserName,
       password: inputPassword,
       license: 'no license',
-      0: [""]}
+      0: []}
       
       
       if (userData.user !== null ) {

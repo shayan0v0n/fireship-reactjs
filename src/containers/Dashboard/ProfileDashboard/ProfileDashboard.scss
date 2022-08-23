@@ -1,22 +1,48 @@
 @import '../../../styles/variables.scss';
 
-.edit-profile-form {
-    margin: 5rem 0;
-    padding: 3rem;
-    background-color: $primary_white;
-    text-align: start;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px; 
-    button {
-        border: none;
-        border-radius: 5px;
-        padding: 1rem 0;
+.dashboard-dark {
+    .edit-profile-form {
+        margin: 5rem 0;
+        padding: 3rem;
         background-color: $secondary_dark;
-        &:hover {
-            background-color: $primary_dark;
+        text-align: start;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px; 
+        button {
+            border: none;
+            border-radius: 5px;
+            padding: 1rem 0;
+            background-color: $primary_white;
+            color: black;
+            &:hover {
+                background-color: $secondary_white;
+            }
+        }
+        .button-disabled {
+            background-color: $primary_gray;
         }
     }
-    .button-disabled {
-        background-color: $primary_gray;
+}
+
+.dashboard-light {
+    .edit-profile-form {
+        margin: 5rem 0;
+        padding: 3rem;
+        background-color: $primary_white;
+        text-align: start;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px; 
+        button {
+            border: none;
+            border-radius: 5px;
+            padding: 1rem 0;
+            background-color: $secondary_dark;
+            &:hover {
+                background-color: $primary_dark;
+            }
+        }
+        .button-disabled {
+            background-color: $primary_gray;
+        }
     }
 }
