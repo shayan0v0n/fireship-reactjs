@@ -15,6 +15,7 @@ import CartDashboard from './containers/Dashboard/CartDashboard/CartDashboard';
 import ProfileDashboard from './containers/Dashboard/ProfileDashboard/ProfileDashboard';
 import ProductsDashboard from './containers/Dashboard/ProductsDashboard/ProductsDashboard';
 import './styles/app.scss'
+import NotFound from './containers/NotFound/NotFound';
 
 const App = props => {
   const [theme] = useDarkMode()
@@ -35,7 +36,7 @@ const App = props => {
           <Route path='/dashboard/cartDashboard' element={ <CartDashboard /> } />
           <Route path='/dashboard/profileDashboard' element={ <ProfileDashboard /> } />
           <Route path='/dashboard/productsDashboard' element={ <ProductsDashboard /> } />
-          <Route path='*' element={ <h2 className='p-5'>404</h2> } />
+          <Route path='*' element={ <NotFound /> } />
         </Routes>
       </main>
         <Footer />
