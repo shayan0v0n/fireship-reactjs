@@ -26,7 +26,9 @@ const DashboardOffcanvas = props => {
   return (
     <>
       <AlertModal show={exitModal} onHide={() => {setExitModal(false)}} modalTitle="Delete Account🚪?" exit={exitHandler}>
-        <h3 className='my-5'>Are You Sure You Want To Delete Your Account??</h3>
+        <img src='/assets/imgs/undraw_login_re_4vu2.svg' className='w-50' />
+        <h3 className='my-2'>Are You Sure You Want To Delete Your Account??</h3>
+        <span>If You Delete Your Account, Delete All Your Products</span>
       </AlertModal>
       <Offcanvas show={props.show} onHide={props.handleClose} className={theme ? 'dashboardOffcanvas-dark' : 'dashboardOffcanvas-light'}>
       <Offcanvas.Header closeButton>

@@ -1,4 +1,5 @@
 import { Button, Modal } from 'react-bootstrap'
+import './AlertModal.scss'
 
 const AlertModal = props => {
   return (
@@ -19,8 +20,8 @@ const AlertModal = props => {
       </Modal.Body>
       { props.exit ? (
         <Modal.Footer className='row'>
-          <Button className='col btn-success' onClick={() => props.exit()}>Yes</Button>
-          <Button className='col btn-danger' onClick={() => props.onHide()}>No</Button>
+          <button className='col exitBtns' onClick={() => props.exit()}>Yes</button>
+          <button className='col exitBtns' onClick={() => props.onHide()}>No</button>
         </Modal.Footer>
       ) : (
         null

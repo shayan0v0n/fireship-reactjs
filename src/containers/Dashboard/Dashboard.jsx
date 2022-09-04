@@ -25,7 +25,9 @@ const Dashboard = () => {
     { currentAccount !== null ? (
       <>
       <AlertModal show={exitModal} onHide={() => {setExitModal(false)}} modalTitle="Delete Account🚪?" exit={exitHandler}>
-        <h3 className='my-5'>Are You Sure You Want To Delete Your Account??</h3>
+        <img src='/assets/imgs/undraw_login_re_4vu2.svg' className='w-50' />
+        <h3 className='my-2'>Are You Sure You Want To Delete Your Account??</h3>
+        <span>If You Delete Your Account, Delete All Your Products</span>
       </AlertModal>
         <div>
           <button className='w-100' onClick={() => setShow(true)}><i className='fa fa-bars'></i></button>

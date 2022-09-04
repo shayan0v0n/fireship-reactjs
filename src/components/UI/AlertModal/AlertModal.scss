@@ -1,0 +1,25 @@
+@import '../../../styles/variables.scss';
+
+.exitBtns {
+    border: none;
+    border-radius: 5px;
+    padding: .5rem;
+}
+
+.exitBtns:nth-child(1) {
+    background-color: $primary_green;
+    color: white;
+    transition: .3s;
+    &:hover {
+        background-color: #047a47;
+    }
+}
+
+.exitBtns:nth-child(2) {
+    background-color: #d72323;
+    color: white;
+    transition: .3s;
+    &:hover {
+        background-color: #830606;
+    }
+}
