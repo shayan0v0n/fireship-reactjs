@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { Col, Row, Card } from 'react-bootstrap'
+import { Col, Row, Card, Placeholder } from 'react-bootstrap'
 import { coursesAction, licensesAction } from '../../apiControl/actions';
 import './SingleCourse.scss'
 import useDarkMode from '../../hooks/useDarkMode';
 import CheckoutLicense from '../../components/CheckoutLicense/CheckoutLicense';
 import SingleLicense from '../../components/SingleLicense/SingleLicense';
 import AlertModal from '../../components/UI/AlertModal/AlertModal';
+import CoursesPlaceholder from '../../components/UI/CoursesPlaceholder/CoursesPlaceholder';
 
 const SingleCourse = () => {
   const [ isExistToAccount, setIsExistAccount ] = useState(false);
@@ -124,7 +125,46 @@ const SingleCourse = () => {
             </Col>
           </Row>
         </div>
-      ) : null }
+      ) : (
+        <div className={!theme ? 'text-center my-5 container singleLesson' : 'text-center my-5 container singleLesson-dark'}>
+        <div>
+          <h2><Placeholder xs={8} /></h2>
+          <hr />
+        </div>
+        <Row className='m-auto'>
+          <Col sm={12} md={9} className="text-start">
+            <Card className='lesson main-aside '>
+              <img src={`/assets/imgs/placeholder.png`} className="w-100" id="lessonTag" />
+              <Card.Body>
+                <Card.Title className='mt-2'><Placeholder xs={8} /></Card.Title>
+                <Card.Text><Placeholder xs={6} /></Card.Text>
+                <span><Placeholder xs={7} /></span>
+              </Card.Body>
+            </Card>
+            <div className='pricing'>
+                <button className='btn w-100 mt-3 pay-button' id='pricing' disabled>ADD TO CART</button>
+              <CheckoutLicense />
+            </div>
+            <div id='licenses'>
+            <Row>
+                  { [0, 1, 2].map(item => (
+                      <Col sm={12} md={4} className="text-center">
+                          <CoursesPlaceholder />
+                      </Col>
+                  )) }
+              </Row>
+            </div>
+          </Col>
+          <Col sm={12} md={3}>
+            <ul className='text-start extra-aside'>
+              <li><Placeholder xs={8} /></li>
+              <li><Placeholder xs={6} /></li>
+              <li><Placeholder xs={8} /></li>
+            </ul>
+          </Col>
+        </Row>
+      </div>
+      ) }
     </div>
   )
 }
