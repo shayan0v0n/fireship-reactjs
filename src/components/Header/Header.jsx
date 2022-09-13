@@ -2,26 +2,39 @@ import { useState } from 'react'
 import { Navbar, Nav, Container, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap';
-import useDarkMode from '../../hooks/useDarkMode'
 import LoginModal from '../LoginModal/LoginModal';
-import axios from 'axios';
 import './Header.scss'
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { darkModeAction } from '../../control/actions';
 
 
 const Header = props => {
-  const [theme, toggleTheme] = useDarkMode();
   const [loginModal, setLoginModal] = useState(false);
   const navigate = useNavigate()
   const navigateDashboard = () => navigate('/dashboard');
   const accountExist = JSON.parse(localStorage.getItem('accountExist'));
+  const dispatch = useDispatch();
+  const currentStorage = JSON.parse(localStorage.getItem('theme'))
+  useEffect(() => {
+    dispatch(darkModeAction(currentStorage))
+  }, [])
   
+  const toggleTheme = () => {
+    dispatch(darkModeAction(!currentStorage))
+  }
+  
+  const darkModeData = useSelector(state => state.darkMode)
 
-
+  let currentMode = false
+  if (darkModeData) {
+    currentMode = darkModeData.mode
+  }
 
     return (
       <>
       <LoginModal show={loginModal} handleClose={() => setLoginModal(false)} />
-        <Navbar bg={theme ? 'dark' : 'light'} variant={theme ? 'dark' : 'light'} className='main-header'>
+        <Navbar bg={currentMode ? 'dark' : 'light'} variant={currentMode ? 'dark' : 'light'} className='main-header'>
         <Container>
             <LinkContainer to='/'>
           <Navbar.Brand>

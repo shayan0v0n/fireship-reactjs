@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card } from 'react-bootstrap'
-import useDarkMode from '../../hooks/useDarkMode'
 import Tags from '../SingleTags/SingleTags'
 import { Link } from 'react-router-dom'
 import './LessionCards.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import { darkModeAction } from '../../control/actions'
 
 const LessionCards = props => {
-    const [ theme ] = useDarkMode()
+    const currentStorage = JSON.parse(localStorage.getItem('theme'))
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(darkModeAction(currentStorage))
+    }, [])
+  
+    const darkModeData = useSelector(state => state.darkMode)
+  
+    let currentMode = false
+    if (darkModeData) {
+      currentMode = darkModeData.mode
+    }
+
+
     let lessonTags = []
     if (props.lession.tags) {
         for (let i = 0;i <= props.lession.tags.length -1 ;i++) {
@@ -15,7 +29,7 @@ const LessionCards = props => {
     }
 
   return (
-      <Card className={theme ? 'lession-card-dark' : 'lession-card-light' } >
+      <Card className={currentMode ? 'lession-card-dark' : 'lession-card-light' } >
             {props.isSingleLession ? (
                 <img src={`/assets/imgs/${props.lession.path}.webp`} />
                 ) : null}

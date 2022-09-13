@@ -1,20 +1,26 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { lessonsAction } from '../../apiControl/actions';
+import { darkModeAction, lessonsAction } from '../../control/actions';
 import { Col, Row } from 'react-bootstrap'
 import LessonsCard from '../../components/LessionCards/LessionCards'
 import CoursePlaceholder from '../../components/UI/CoursesPlaceholder/CoursesPlaceholder'
-import useDarkMode from '../../hooks/useDarkMode';
 
 const SingleCourse = () => {
   const currentPath = useParams().path;
-  const [theme] = useDarkMode()
+  const currentStorage = JSON.parse(localStorage.getItem('theme'))
+  const darkModeData = useSelector(state => state.darkMode)
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(lessonsAction())
+    dispatch(darkModeAction(currentStorage))
   }, [])
-
+  
+  let currentMode = false
+  if (darkModeData) {
+    currentMode = darkModeData.mode
+  }
   const lessonsData = useSelector(state => state.lessons)
   let currentLessons = []
   if (!lessonsData.loading) {
@@ -33,7 +39,7 @@ const SingleCourse = () => {
       { !lessonsData.loading ? (
         <div className='text-center my-3'>
           <div className='container'>
-            <h2 style={theme ? {color: 'white'} : {color: 'dark'}}>'{ currentPath }' Tag!</h2>
+            <h2 style={currentMode ? {color: 'white'} : {color: 'dark'}}>'{ currentPath }' Tag!</h2>
             <hr />  
           </div>
           <Row className='container m-auto'>
@@ -47,7 +53,7 @@ const SingleCourse = () => {
       ) : (
       <div className='text-center my-3'>
         <div className='container'>
-          <h2 style={theme ? {color: 'white'} : {color: 'dark'}}>'{ currentPath }' Tag!</h2>
+          <h2 style={currentMode ? {color: 'white'} : {color: 'dark'}}>'{ currentPath }' Tag!</h2>
           <hr />
         </div>
         <Row className='container m-auto'>

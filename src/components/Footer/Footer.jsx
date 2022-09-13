@@ -1,12 +1,24 @@
 import './Footer.scss'
-import useDarkMode from '../../hooks/useDarkMode'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { darkModeAction } from '../../control/actions'
 
 const Footer = props => {
-    const [theme, taggleTheme] = useDarkMode()
+    const currentStorage = JSON.parse(localStorage.getItem('theme'))
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(darkModeAction(currentStorage))
+    }, [])
+  
+    const darkModeData = useSelector(state => state.darkMode)
+  
+    let currentMode = false
+    if (darkModeData) {
+      currentMode = darkModeData.mode
+    }
 
     return (
-        <footer className={theme ? 'footer-dark' : 'footer-light'}>
+        <footer className={currentMode ? 'footer-dark' : 'footer-light'}>
             <div className='footer-texts'>
                 <span>Find an issue with this page? <a href="#">Fix it on GitHub</a></span>
                 <hr className='w-25 mx-auto' />

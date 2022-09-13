@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import { coursesReducer, lessonsReducer,
+import { coursesReducer, darkModeReducer, lessonsReducer,
 licenseReducer, tagsReducer,
 tweetsReducer, userReducer } from './reducers'
 
@@ -12,7 +12,8 @@ const reducers = combineReducers({
     tweets: tweetsReducer,
     tags: tagsReducer,
     licenses: licenseReducer,
-    user: userReducer
+    user: userReducer,
+    darkMode: darkModeReducer
 })
 
 const middleWare = [thunk]

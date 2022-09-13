@@ -1,9 +1,22 @@
-import useDarkMode from '../../hooks/useDarkMode';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { darkModeAction } from '../../control/actions';
 import './SingleLicense.scss'
 
 const SingleLicense = props => {
     const { licenseData } = props;
-    const [theme] = useDarkMode() 
+    const currentStorage = JSON.parse(localStorage.getItem('theme'))
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(darkModeAction(currentStorage))
+    }, [])
+  
+    const darkModeData = useSelector(state => state.darkMode)
+  
+    let currentMode = false
+    if (darkModeData) {
+      currentMode = darkModeData.mode
+    }
 
     const licenseDescs = []
     if (licenseData.desc) {
@@ -14,7 +27,7 @@ const SingleLicense = props => {
 
   return (
     <div className='text-center mt-5 single-license'>
-        {theme ? (
+        {currentStorage ? (
         <img src={`/assets/imgs/${licenseData.name}_icon-light.png`} />
         ) : (
         <img src={`/assets/imgs/${licenseData.name}_icon-dark.png`} />

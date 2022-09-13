@@ -1,13 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap' 
 import { useNavigate } from 'react-router-dom'
 import DashboardOffcanvas from '../../components/DashboardOffcanvas/DashboardOffcanvas'
-import useDarkMode from '../../hooks/useDarkMode'
 import AlertModal from '../../components/UI/AlertModal/AlertModal'
 import './Dashboard.scss'
+import { darkModeAction } from '../../control/actions'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Dashboard = () => {
-  const [theme] = useDarkMode()
+  const currentStorage = JSON.parse(localStorage.getItem('theme'))
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(darkModeAction(currentStorage))
+  }, [])
+
+  const darkModeData = useSelector(state => state.darkMode)
+
+  let currentMode = false
+  if (darkModeData) {
+    currentMode = darkModeData.mode
+  }
+
   const [show, setShow] = useState(true);
   const [ exitModal, setExitModal ] = useState(false)
   const navigate = useNavigate();
@@ -21,7 +34,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={theme ? 'text-center dashboard-dark' : 'text-center dashboard-light'}>
+    <div className={currentMode ? 'text-center dashboard-dark' : 'text-center dashboard-light'}>
     { currentAccount !== null ? (
       <>
       <AlertModal show={exitModal} onHide={() => {setExitModal(false)}} modalTitle="Delete Account🚪?" exit={exitHandler}>

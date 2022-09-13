@@ -1,14 +1,27 @@
-import { useState } from 'react'
-import useDarkMode from '../../../hooks/useDarkMode'
+import { useEffect, useState } from 'react'
 import DashboardOffcanvas from '../../../components/DashboardOffcanvas/DashboardOffcanvas'
 import CardsCart from '../../../components/CardsCart/CardsCart'
 import './ProductsDashboard.scss'
 import AlertModal from '../../../components/UI/AlertModal/AlertModal'
 import { Row, Col, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { darkModeAction } from '../../../control/actions'
 
 const ProductsDashboard = () => {
-  const [theme] = useDarkMode()
+  const currentStorage = JSON.parse(localStorage.getItem('theme'))
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(darkModeAction(currentStorage))
+  }, [])
+
+  const darkModeData = useSelector(state => state.darkMode)
+
+  let currentMode = false
+  if (darkModeData) {
+    currentMode = darkModeData.mode
+  }
+
   const [show, setShow] = useState(true);
   const currentAccount = JSON.parse(localStorage.getItem("accountExist"))
   const [ showCartModal, setShowCartModal ] = useState(false)
@@ -20,7 +33,7 @@ const ProductsDashboard = () => {
   }
 
   return (
-    <div className={theme ? 'dashboard-dark' : 'dashboard-light'}>
+    <div className={currentMode ? 'dashboard-dark' : 'dashboard-light'}>
       <AlertModal show={showCartModal} onHide={() => {setShowCartModal(false)}} modalTitle="Check All Products📋">
       <Row>
         <h2>ALL PRICE: ${addPrice}.00</h2>

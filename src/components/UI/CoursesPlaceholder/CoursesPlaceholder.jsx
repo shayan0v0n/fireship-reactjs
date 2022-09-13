@@ -1,12 +1,25 @@
+import { useEffect } from 'react'
 import { Card, Placeholder } from 'react-bootstrap'
-import useDarkMode from '../../../hooks/useDarkMode'
+import { useDispatch, useSelector } from 'react-redux'
+import { darkModeAction } from '../../../control/actions'
 import './CoursesPlaceholder.scss'
 
 const CoursesPlaceholder = () => {
-    const [theme] = useDarkMode()
+  const currentStorage = JSON.parse(localStorage.getItem('theme'))
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(darkModeAction(currentStorage))
+  }, [])
+
+  const darkModeData = useSelector(state => state.darkMode)
+
+  let currentMode = false
+  if (darkModeData) {
+    currentMode = darkModeData.mode
+  }
 
     return (
-        <Card className={theme ? 'p-3 m-3 coursesPlace-dark' : 'p-3 m-3 coursesPlace-light'}>
+        <Card className={currentMode ? 'p-3 m-3 coursesPlace-dark' : 'p-3 m-3 coursesPlace-light'}>
         <Card.Img variant="top" src="/assets/imgs/placeholder.png" />
         <Card.Body>
           <Placeholder as={Card.Title} animation="glow">

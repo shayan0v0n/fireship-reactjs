@@ -2,26 +2,32 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Row, Card, Placeholder } from 'react-bootstrap'
-import { lessonsAction, licensesAction } from '../../apiControl/actions';
-import useDarkMode from '../../hooks/useDarkMode';
+import { darkModeAction, lessonsAction, licensesAction } from '../../control/actions';
 import CheckoutLicense from '../../components/CheckoutLicense/CheckoutLicense';
 import SingleLicense from '../../components/SingleLicense/SingleLicense';
 import AlertModal from '../../components/UI/AlertModal/AlertModal';
-import './SingleLesson.scss'
 import CoursesPlaceholder from '../../components/UI/CoursesPlaceholder/CoursesPlaceholder';
+import './SingleLesson.scss'
 
 const SingleLesson = () => {
-  const [theme] = useDarkMode()
   const [ isExistToAccount, setIsExistAccount ] = useState(false);
   const [ addToCartModal, setAddToCartModal ] = useState(false)
   const currentAccount = JSON.parse(localStorage.getItem("accountExist"))
-  const currentPath = useParams().path;
+  const currentStorage = JSON.parse(localStorage.getItem('theme'))
+  const currentPath = useParams().path;  
+  const darkModeData = useSelector(state => state.darkMode)
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(licensesAction())
     dispatch(lessonsAction())
+    dispatch(darkModeAction(currentStorage))
   }, [])
-
+  
+  let currentMode = false
+  if (darkModeData) {
+    currentMode = darkModeData.mode
+  }
   const licensesData = useSelector(state => state.licenses)
   const lessonsData = useSelector(state => state.lessons)
   
@@ -81,7 +87,7 @@ const SingleLesson = () => {
         <h3>I Hope Enjoy It...</h3>
       </AlertModal>
       { !lessonsData.loading && !licensesData.loading ? (
-        <div className={!theme ? 'text-center my-5 container singleLesson' : 'text-center my-5 container singleLesson-dark'}>
+        <div className={!currentMode ? 'text-center my-5 container singleLesson' : 'text-center my-5 container singleLesson-dark'}>
           <div>
             <h2>{currentCourse.title}</h2>
             <hr />
@@ -125,7 +131,7 @@ const SingleLesson = () => {
           </Row>
         </div>
       ) : (
-        <div className={!theme ? 'text-center my-5 container singleLesson' : 'text-center my-5 container singleLesson-dark'}>
+        <div className={!currentMode ? 'text-center my-5 container singleLesson' : 'text-center my-5 container singleLesson-dark'}>
         <div>
           <h2><Placeholder xs={8} /></h2>
           <hr />

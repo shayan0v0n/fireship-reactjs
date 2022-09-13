@@ -1,16 +1,30 @@
 import { useNavigate } from 'react-router-dom'
-import useDarkMode from '../../hooks/useDarkMode';
 import { Offcanvas } from 'react-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios'
 import AlertModal from '../UI/AlertModal/AlertModal';
 import './DashboardOffcanvas.scss'
+import { darkModeAction } from '../../control/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 
 const DashboardOffcanvas = props => {
-  const [theme] = useDarkMode()
+  const currentStorage = JSON.parse(localStorage.getItem('theme'))
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(darkModeAction(currentStorage))
+  }, [])
+
+  const darkModeData = useSelector(state => state.darkMode)
+
+  let currentMode = false
+  if (darkModeData) {
+    currentMode = darkModeData.mode
+  }
+
+
   const navigate = useNavigate()
   const [ exitModal, setExitModal ] = useState(false)
   const navigateHandler = route => navigate(route)
@@ -30,7 +44,7 @@ const DashboardOffcanvas = props => {
         <h3 className='my-2'>Are You Sure You Want To Delete Your Account??</h3>
         <span>If You Delete Your Account, Delete All Your Products</span>
       </AlertModal>
-      <Offcanvas show={props.show} onHide={props.handleClose} className={theme ? 'dashboardOffcanvas-dark' : 'dashboardOffcanvas-light'}>
+      <Offcanvas show={props.show} onHide={props.handleClose} className={currentMode ? 'dashboardOffcanvas-dark' : 'dashboardOffcanvas-light'}>
       <Offcanvas.Header closeButton>
         <Offcanvas.Title onClick={() => navigateHandler('/dashboard')} style={{ cursor: 'pointer' }}>Dashboard</Offcanvas.Title>
       </Offcanvas.Header>

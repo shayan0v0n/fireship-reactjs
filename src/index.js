@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css'
 import App from './App';
 import { Provider } from 'react-redux';
-import store from './apiControl/store';
+import store from './control/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

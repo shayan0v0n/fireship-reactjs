@@ -5,7 +5,6 @@ import Home from './containers/Home/Home';
 import Lessions from './containers/Lessions/Lessions';
 import Courses from './containers/Courses/Courses';
 import Tags from './containers/Tags/Tags';
-import useDarkMode from './hooks/useDarkMode';
 import License from './containers/License/License';
 import SingleLesson from './containers/SingleLesson/SingleLesson';
 import SingleCourse from './containers/SingleCourse/SingleCourse';
@@ -14,13 +13,28 @@ import Dashboard from './containers/Dashboard/Dashboard';
 import CartDashboard from './containers/Dashboard/CartDashboard/CartDashboard';
 import ProfileDashboard from './containers/Dashboard/ProfileDashboard/ProfileDashboard';
 import ProductsDashboard from './containers/Dashboard/ProductsDashboard/ProductsDashboard';
-import './styles/app.scss'
 import NotFound from './containers/NotFound/NotFound';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { darkModeAction } from './control/actions';
+import './styles/app.scss'
 
 const App = props => {
-  const [theme] = useDarkMode()
+  const currentStorage = JSON.parse(localStorage.getItem('theme'))
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(darkModeAction(currentStorage))
+  }, [])
+
+  const darkModeData = useSelector(state => state.darkMode)
+
+  let currentMode = false
+  if (darkModeData) {
+    currentMode = darkModeData.mode
+  }
+  
   return (
-    <div className={theme ? 'main-dark' : 'main-light'}>
+    <div className={currentMode ? 'main-dark' : 'main-light'}>
         <Header />
       <main>
         <Routes>

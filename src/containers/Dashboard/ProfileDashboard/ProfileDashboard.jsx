@@ -1,13 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Form, FloatingLabel, Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
-import useDarkMode from '../../../hooks/useDarkMode'
 import DashboardOffcanvas from '../../../components/DashboardOffcanvas/DashboardOffcanvas'
 import './ProfileDashboard.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import { darkModeAction } from '../../../control/actions'
 
 const ProfileDashboard = () => {
 const currentAccount = JSON.parse(localStorage.getItem('accountExist'))
-  const [theme] = useDarkMode()
+const currentStorage = JSON.parse(localStorage.getItem('theme'))
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(darkModeAction(currentStorage))
+  }, [])
+
+  const darkModeData = useSelector(state => state.darkMode)
+
+  let currentMode = false
+  if (darkModeData) {
+    currentMode = darkModeData.mode
+  }
+
   const navigate = useNavigate()
   const [show, setShow] = useState(true);
   const [ currentName, setCurrentName ] = useState(currentAccount)
@@ -64,7 +77,7 @@ if (currentAccount !== null) {
 }
 
   return (
-    <div className={theme ? 'dashboard-dark text-center' : 'dashboard-light text-center'}>
+    <div className={currentMode ? 'dashboard-dark text-center' : 'dashboard-light text-center'}>
         { currentAccount !== null ? (
       <div>
         <button className='w-100' onClick={() => setShow(true)}><i className='fa fa-bars'></i></button>

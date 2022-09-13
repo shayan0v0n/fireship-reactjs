@@ -1,21 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { licensesAction, tweetsAction } from '../../apiControl/actions'
+import { darkModeAction, licensesAction, tweetsAction } from '../../control/actions'
 import TwitterPeople from '../../components/TwitterPeople/TwitterPeople'
-import useDarkMode from '../../hooks/useDarkMode'
 import SingleLicense from '../../components/SingleLicense/SingleLicense'
 import CheckoutLicense from '../../components/CheckoutLicense/CheckoutLicense'
 import './License.scss'
 
 const License = () => {
-    const [ theme ] = useDarkMode()
+    const currentStorage = JSON.parse(localStorage.getItem('theme'))
+    const darkModeData = useSelector(state => state.darkMode)
+    
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(licensesAction())
         dispatch(tweetsAction())
+        dispatch(darkModeAction(currentStorage))
     }, [])
-
+    
+    let currentMode = false
+    if (darkModeData) {
+        currentMode = darkModeData.mode
+    }
     const licensesData = useSelector(state => state.licenses)
     let licenses = []
     if (!licensesData.loading) {
@@ -34,7 +40,7 @@ const License = () => {
     }
 
   return (
-    <div className={theme ? 'container license-dark my-3' : 'container license-light my-3'}>
+    <div className={currentMode ? 'container license-dark my-3' : 'container license-light my-3'}>
         <section>
             <div className='license-banner'>
                 <h2>PRO</h2>

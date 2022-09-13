@@ -2,17 +2,23 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'react-bootstrap' 
 import CoursesPlaceholder from '../../components/UI/CoursesPlaceholder/CoursesPlaceholder'
-import { coursesAction } from '../../apiControl/actions'
+import { coursesAction, darkModeAction } from '../../control/actions'
 import CardItems from '../../components/CardItems/CardItems'
-import useDarkMode from '../../hooks/useDarkMode'
 
 const Courses = () => {
-  const [theme] = useDarkMode()
   const dispatch = useDispatch()
-
+  const currentStorage = JSON.parse(localStorage.getItem('theme'))
   useEffect(() => {
+    dispatch(darkModeAction(currentStorage))
     dispatch(coursesAction())
   }, [])
+
+  const darkModeData = useSelector(state => state.darkMode)
+
+  let currentMode = false
+  if (darkModeData) {
+    currentMode = darkModeData.mode
+  }
 
   const coursesData = useSelector(state => state.courses)
   const courses = []
@@ -24,7 +30,7 @@ const Courses = () => {
 
   return (
     <div className='lessions container mt-5'>
-      <h2 className={theme ? 'text-white' : 'text-dark'}>WATCH THE LATEST COURSES</h2>
+      <h2 className={currentMode ? 'text-white' : 'text-dark'}>WATCH THE LATEST COURSES</h2>
       { !coursesData.loading ? (
       <Row>
         {courses.map((course, index) => (

@@ -59,3 +59,13 @@ export const userAction = () => async dispatch => {
         dispatch({ type: 'USER_REQ_ERR' })
     }
 }
+
+export const darkModeAction = (currentMode) => async dispatch => {
+    if (currentMode == false) {
+        localStorage.setItem('theme', JSON.stringify(false))
+        dispatch({ type: 'DARKMODE_LIGHT' })
+    }else {
+        localStorage.setItem('theme', JSON.stringify(true))
+        dispatch({ type: 'DARKMODE_DARK' })
+    }
+}

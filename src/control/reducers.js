@@ -75,3 +75,15 @@ export const userReducer = (state = {user: []}, action) => {
             return state
     }
 }
+
+export const darkModeReducer = (state = { mode: true }, action) => {
+    switch(action.type) {
+        case 'DARKMODE_LIGHT':
+            return { mode: false }
+            
+        case 'DARKMODE_DARK': 
+            return { mode: true }
+        default:
+            return state
+    }
+}

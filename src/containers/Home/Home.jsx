@@ -3,27 +3,35 @@ import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Row, Col, Button, Image } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { coursesAction, lessonsAction, tweetsAction } from '../../apiControl/actions'
+import { coursesAction, darkModeAction, lessonsAction, tweetsAction } from '../../control/actions'
 import TwitterPeople from '../../components/TwitterPeople/TwitterPeople'
 import LessionCards from '../../components/LessionCards/LessionCards'
 import CardItems from '../../components/CardItems/CardItems'
-import useDarkMode from '../../hooks/useDarkMode'
+// import useDarkMode from '../../hooks/useDarkMode'
 import CoursesPlaceholder from '../../components/UI/CoursesPlaceholder/CoursesPlaceholder'
 import TweetsPlaceholder from '../../components/UI/TweetsPlaceholder/TweetsPlaceholder'
 import './Home.scss'
 
 const Home = () => {
-  const [theme] = useDarkMode()
+  // const [theme] = useDarkMode()
   const dispatch = useDispatch();
+  const currentStorage = JSON.parse(localStorage.getItem('theme'))
   useEffect(() => {
     dispatch(coursesAction())
     dispatch(lessonsAction())
     dispatch(tweetsAction())
+    dispatch(darkModeAction(currentStorage))
   }, [])
   
   const lessonsData = useSelector(state => state.lessons)
   const coursesData = useSelector(state => state.courses)
   const tweetsData = useSelector(state => state.tweets)
+  const darkModeData = useSelector(state => state.darkMode)
+
+  let currentMode = false
+  if (darkModeData) {
+    currentMode = darkModeData.mode
+  }
 
   let newCourse = []
   let learnByDoing = []
@@ -61,7 +69,7 @@ const Home = () => {
 
   
   return (
-    <div className={theme ? 'container main-home-dark' : 'container main-home-light'}>
+    <div className={currentMode ? 'container main-home-dark' : 'container main-home-light'}>
       <section>
       <Row className='my-5  main-banner'>
         <Col md='6' sm='12'>
