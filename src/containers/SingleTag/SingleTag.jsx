@@ -35,25 +35,37 @@ const SingleCourse = () => {
   
 
   return (
-    <div>
+    <div style={currentMode ? {color: 'white'} : {color: 'black'}}>
+      
       { !lessonsData.loading ? (
-        <div className='text-center my-3'>
-          <div className='container'>
-            <h2 style={currentMode ? {color: 'white'} : {color: 'dark'}}>'{ currentPath }' Tag!</h2>
-            <hr />  
+        currentLessons.length !== 0 ? (
+          <>
+            <div className='text-center my-3'>
+            <div className='container'>
+              <h2>'{ currentPath }' Tag!</h2>
+              <hr />  
+            </div>
+            <Row className='container m-auto'>
+              { currentLessons.map(item => (
+                <Col sm={12} md={6}>
+                  <LessonsCard lession={item} isSingleLession={true} />
+                </Col>
+              )) }
+            </Row>
           </div>
-          <Row className='container m-auto'>
-            { currentLessons.map(item => (
-              <Col sm={12} md={6}>
-                <LessonsCard lession={item} isSingleLession={true} />
-              </Col>
-            )) }
-          </Row>
+          </>
+        ) : (
+        <div className='my-5 text-center py-5 dashboard-err'>
+            <div className='py-5'>
+              <h2>No Product For This Tag🐷🍭</h2>
+              <span>Please Be Patient, We Will Create It...</span>
+            </div>
         </div>
+        ) 
       ) : (
       <div className='text-center my-3'>
         <div className='container'>
-          <h2 style={currentMode ? {color: 'white'} : {color: 'dark'}}>'{ currentPath }' Tag!</h2>
+          <h2>'{ currentPath }' Tag!</h2>
           <hr />
         </div>
         <Row className='container m-auto'>
