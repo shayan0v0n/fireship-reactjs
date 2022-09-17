@@ -7,13 +7,12 @@ import { coursesAction, darkModeAction, lessonsAction, tweetsAction } from '../.
 import TwitterPeople from '../../components/TwitterPeople/TwitterPeople'
 import LessionCards from '../../components/LessionCards/LessionCards'
 import CardItems from '../../components/CardItems/CardItems'
-// import useDarkMode from '../../hooks/useDarkMode'
 import CoursesPlaceholder from '../../components/UI/CoursesPlaceholder/CoursesPlaceholder'
 import TweetsPlaceholder from '../../components/UI/TweetsPlaceholder/TweetsPlaceholder'
 import './Home.scss'
+import Masonry from 'react-masonry-css'
 
 const Home = () => {
-  // const [theme] = useDarkMode()
   const dispatch = useDispatch();
   const currentStorage = JSON.parse(localStorage.getItem('theme'))
   useEffect(() => {
@@ -212,13 +211,13 @@ const Home = () => {
       </section>
       <section className='my-5'>
         { !tweetsData.loading ? (
-        <Row>
+        <Masonry breakpointCols={{default: 3, 900: 2, 300: 1}} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
           {tweets.map(user => (
-            <Col sm='12' md='4' key={user.id}>
+            <div key={user.id}>
                 <TwitterPeople userData={user} />
-            </Col>
+            </div>
           ))}
-        </Row>
+        </Masonry>
         ) : (
           <Row>
             {[1, 2, 3, 4, 5, 6].map(item => (

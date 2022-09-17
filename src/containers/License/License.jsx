@@ -6,6 +6,7 @@ import TwitterPeople from '../../components/TwitterPeople/TwitterPeople'
 import SingleLicense from '../../components/SingleLicense/SingleLicense'
 import CheckoutLicense from '../../components/CheckoutLicense/CheckoutLicense'
 import './License.scss'
+import Masonry from 'react-masonry-css'
 
 const License = () => {
     const currentStorage = JSON.parse(localStorage.getItem('theme'))
@@ -62,13 +63,13 @@ const License = () => {
             <h2>WELCOME ABOARD!</h2>
             <span>WHAT OTHER PROFESSIONAL DEVS SAY ABOUT FIRESHIP CONTENT</span>
             <div className='mt-5 text-start'>
-                <Row>
+                <Masonry breakpointCols={{default: 3, 900: 2, 300: 1}} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
                     {tweets.map(user => (
-                        <Col sm='12' md='4'>
+                        <div>
                             <TwitterPeople userData={user} />
-                        </Col>
+                        </div>
                     ))}
-                </Row>
+                </Masonry>
             </div>
         </section>
         <section className='text-center my-5'>
